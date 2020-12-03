@@ -33,7 +33,7 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
 
   // Git command manager
   core.startGroup('Getting Git version info')
-  const git = await getGitCommandManager(settings)
+  const git = await getGitCommandManager(settings.repositoryPath, settings.lfs)
   core.endGroup()
 
   // Prepare existing directory, otherwise recreate
@@ -190,11 +190,63 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
         core.endGroup()
 
         // Persist credentials
-        if (settings.persistCredentials) {
+        if (settings.persistCredentials || settings.submodulesRemoteBranch) {
           core.startGroup('Persisting credentials for submodules')
           await authHelper.configureSubmoduleAuth()
           core.endGroup()
         }
+
+        // Checkout submodules remote branch
+        if (settings.submodulesRemoteBranch) {
+	        core.startGroup('Checkout submodules remote branch ' + settings.submodulesRemoteBranch)
+          // Get submodules list
+          const submodulesList = await git.getSubmodulesList()
+          for (let sub of submodulesList) {
+            // for each submodule, fetch the appropriate information
+            const subGit = await getGitCommandManager(settings.repositoryPath + '/' + sub, settings.lfs)
+            if (!subGit) {
+              core.debug('subGit is NULL')
+            }
+            if (subGit && await subGit.remoteBranchExists(settings.submodulesRemoteBranch)) {
+              // LFS install
+              if (settings.lfs) {
+                await subGit.lfsInstall()
+              }
+
+              if (settings.fetchDepth <= 0) {
+                // Fetch all branches and tags
+                let refSpec = refHelper.getRefSpecForAllHistory(
+                  settings.submodulesRemoteBranch,
+                  ''
+                )
+                await subGit.fetch(refSpec)
+
+                // When all history is fetched, the ref we're interested in may have moved to a different
+                // commit (push or force push). If so, fetch again with a targeted refspec.
+                if (!(await refHelper.testRef(subGit, settings.submodulesRemoteBranch, ''))) {
+                  refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '')
+                  await subGit.fetch(refSpec)
+                }
+              } else {
+                  const refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '')
+                  await subGit.fetch(refSpec, settings.fetchDepth)
+              }
+
+              const subCheckoutInfo = await refHelper.getCheckoutInfo(
+                subGit,
+                settings.submodulesRemoteBranch,
+                ''
+              )
+
+              if (settings.lfs) {
+                await subGit.lfsFetch(subCheckoutInfo.startPoint || subCheckoutInfo.ref)
+              }
+
+              await subGit.checkout(subCheckoutInfo.ref, subCheckoutInfo.startPoint)
+            }
+          }
+          core.endGroup()
+	      }
       } finally {
         // Remove temporary global config override
         await authHelper.removeGlobalAuth()
@@ -248,17 +300,17 @@ export async function cleanup(repositoryPath: string): Promise<void> {
 }
 
 async function getGitCommandManager(
-  settings: IGitSourceSettings
+  repositoryPath: string, lfs: boolean
 ): Promise<IGitCommandManager | undefined> {
-  core.info(`Working directory is '${settings.repositoryPath}'`)
+  core.info(`Working directory is '${repositoryPath}'`)
   try {
     return await gitCommandManager.createCommandManager(
-      settings.repositoryPath,
-      settings.lfs
+      repositoryPath,
+      lfs
     )
   } catch (err) {
     // Git is required for LFS
-    if (settings.lfs) {
+    if (lfs) {
       throw err
     }
 

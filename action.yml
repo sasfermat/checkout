@@ -68,6 +68,10 @@ inputs:
       When the `ssh-key` input is not provided, SSH URLs beginning with `git@github.com:` are
       converted to HTTPS.
     default: false
+  submodules-remote-branch:
+    description: >
+      Remote branch to checkout submodules to. Does nothing on a submodule for which a branch with
+      this name does not exist.
 runs:
   using: node12
   main: dist/index.js

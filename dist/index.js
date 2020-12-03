@@ -3354,7 +3354,7 @@ exports.getUserAgent = getUserAgent;
 /***/ 215:
 /***/ (function(module) {
 
-module.exports = {"name":"@octokit/rest","version":"16.43.1","publishConfig":{"access":"public"},"description":"GitHub REST API client for Node.js","keywords":["octokit","github","rest","api-client"],"author":"Gregor Martynus (https://github.com/gr2m)","contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"repository":"https://github.com/octokit/rest.js","dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"types":"index.d.ts","scripts":{"coverage":"nyc report --reporter=html && open coverage/index.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","pretest":"npm run -s lint","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","build":"npm-run-all build:*","build:ts":"npm run -s update-endpoints:typescript","prebuild:browser":"mkdirp dist/","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","prevalidate:ts":"npm run -s build:ts","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","start-fixtures-server":"octokit-fixtures-server"},"license":"MIT","files":["index.js","index.d.ts","lib","plugins"],"nyc":{"ignore":["test"]},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}],"_resolved":"https://registry.npmjs.org/@octokit/rest/-/rest-16.43.1.tgz","_integrity":"sha512-gfFKwRT/wFxq5qlNjnW2dh+qh74XgTQ2B179UX5K1HYCluioWj8Ndbgqw2PVqa1NnVJkGHp2ovMpVn/DImlmkw==","_from":"@octokit/rest@16.43.1"};
+module.exports = {"name":"@octokit/rest","version":"16.43.1","publishConfig":{"access":"public"},"description":"GitHub REST API client for Node.js","keywords":["octokit","github","rest","api-client"],"author":"Gregor Martynus (https://github.com/gr2m)","contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"repository":"https://github.com/octokit/rest.js","dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"types":"index.d.ts","scripts":{"coverage":"nyc report --reporter=html && open coverage/index.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","pretest":"npm run -s lint","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","build":"npm-run-all build:*","build:ts":"npm run -s update-endpoints:typescript","prebuild:browser":"mkdirp dist/","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","prevalidate:ts":"npm run -s build:ts","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","start-fixtures-server":"octokit-fixtures-server"},"license":"MIT","files":["index.js","index.d.ts","lib","plugins"],"nyc":{"ignore":["test"]},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}]};
 
 /***/ }),
 
@@ -5489,25 +5489,23 @@ class GitAuthHelper {
         return __awaiter(this, void 0, void 0, function* () {
             // Remove possible previous HTTPS instead of SSH
             yield this.removeGitConfig(this.insteadOfKey, true);
-            if (this.settings.persistCredentials) {
-                // Configure a placeholder value. This approach avoids the credential being captured
-                // by process creation audit events, which are commonly logged. For more information,
-                // refer to https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing
-                const output = yield this.git.submoduleForeach(`git config --local '${this.tokenConfigKey}' '${this.tokenPlaceholderConfigValue}' && git config --local --show-origin --name-only --get-regexp remote.origin.url`, this.settings.nestedSubmodules);
-                // Replace the placeholder
-                const configPaths = output.match(/(?<=(^|\n)file:)[^\t]+(?=\tremote\.origin\.url)/g) || [];
-                for (const configPath of configPaths) {
-                    core.debug(`Replacing token placeholder in '${configPath}'`);
-                    yield this.replaceTokenPlaceholder(configPath);
-                }
-                if (this.settings.sshKey) {
-                    // Configure core.sshCommand
-                    yield this.git.submoduleForeach(`git config --local '${SSH_COMMAND_KEY}' '${this.sshCommand}'`, this.settings.nestedSubmodules);
-                }
-                else {
-                    // Configure HTTPS instead of SSH
-                    yield this.git.submoduleForeach(`git config --local '${this.insteadOfKey}' '${this.insteadOfValue}'`, this.settings.nestedSubmodules);
-                }
+            // Configure a placeholder value. This approach avoids the credential being captured
+            // by process creation audit events, which are commonly logged. For more information,
+            // refer to https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing
+            const output = yield this.git.submoduleForeach(`git config --local '${this.tokenConfigKey}' '${this.tokenPlaceholderConfigValue}' && git config --local --show-origin --name-only --get-regexp remote.origin.url`, this.settings.nestedSubmodules);
+            // Replace the placeholder
+            const configPaths = output.match(/(?<=(^|\n)file:)[^\t]+(?=\tremote\.origin\.url)/g) || [];
+            for (const configPath of configPaths) {
+                core.debug(`Replacing token placeholder in '${configPath}'`);
+                yield this.replaceTokenPlaceholder(configPath);
+            }
+            if (this.settings.sshKey) {
+                // Configure core.sshCommand
+                yield this.git.submoduleForeach(`git config --local '${SSH_COMMAND_KEY}' '${this.sshCommand}'`, this.settings.nestedSubmodules);
+            }
+            else {
+                // Configure HTTPS instead of SSH
+                yield this.git.submoduleForeach(`git config --local '${this.insteadOfKey}' '${this.insteadOfValue}'`, this.settings.nestedSubmodules);
             }
         });
     }
@@ -5854,6 +5852,14 @@ class GitCommandManager {
             throw new Error('Unexpected output when retrieving default branch');
         });
     }
+    getSubmodulesList() {
+        return __awaiter(this, void 0, void 0, function* () {
+            core.debug('get submodules list');
+            //const output = await this.submoduleForeach('--quiet \'echo $name\'', false)
+            const output = yield this.execGit(['submodule', 'foreach', '--quiet', 'echo $name']);
+            return output.stdout.trim().split('\n');
+        });
+    }
     getWorkingDirectory() {
         return this.workingDirectory;
     }
@@ -5894,6 +5900,17 @@ class GitCommandManager {
     remoteAdd(remoteName, remoteUrl) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.execGit(['remote', 'add', remoteName, remoteUrl]);
+        });
+    }
+    remoteBranchExists(branch) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const output2 = yield this.execGit([
+                'ls-remote',
+                '--heads',
+                'origin',
+                branch
+            ]);
+            return !!output2.stdout;
         });
     }
     removeEnvironmentVariable(name) {
@@ -6156,7 +6173,7 @@ function getSource(settings) {
         }
         // Git command manager
         core.startGroup('Getting Git version info');
-        const git = yield getGitCommandManager(settings);
+        const git = yield getGitCommandManager(settings.repositoryPath, settings.lfs);
         core.endGroup();
         // Prepare existing directory, otherwise recreate
         if (isExisting) {
@@ -6259,9 +6276,49 @@ function getSource(settings) {
                     yield git.submoduleForeach('git config --local gc.auto 0', settings.nestedSubmodules);
                     core.endGroup();
                     // Persist credentials
-                    if (settings.persistCredentials) {
+                    if (settings.persistCredentials || settings.submodulesRemoteBranch) {
                         core.startGroup('Persisting credentials for submodules');
                         yield authHelper.configureSubmoduleAuth();
+                        core.endGroup();
+                    }
+                    // Checkout submodules remote branch
+                    if (settings.submodulesRemoteBranch) {
+                        core.startGroup('Checkout submodules remote branch ' + settings.submodulesRemoteBranch);
+                        // Get submodules list
+                        const submodulesList = yield git.getSubmodulesList();
+                        for (let sub of submodulesList) {
+                            // for each submodule, fetch the appropriate information
+                            const subGit = yield getGitCommandManager(settings.repositoryPath + '/' + sub, settings.lfs);
+                            if (!subGit) {
+                                core.debug('subGit is NULL');
+                            }
+                            if (subGit && (yield subGit.remoteBranchExists(settings.submodulesRemoteBranch))) {
+                                // LFS install
+                                if (settings.lfs) {
+                                    yield subGit.lfsInstall();
+                                }
+                                if (settings.fetchDepth <= 0) {
+                                    // Fetch all branches and tags
+                                    let refSpec = refHelper.getRefSpecForAllHistory(settings.submodulesRemoteBranch, '');
+                                    yield subGit.fetch(refSpec);
+                                    // When all history is fetched, the ref we're interested in may have moved to a different
+                                    // commit (push or force push). If so, fetch again with a targeted refspec.
+                                    if (!(yield refHelper.testRef(subGit, settings.submodulesRemoteBranch, ''))) {
+                                        refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '');
+                                        yield subGit.fetch(refSpec);
+                                    }
+                                }
+                                else {
+                                    const refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '');
+                                    yield subGit.fetch(refSpec, settings.fetchDepth);
+                                }
+                                const subCheckoutInfo = yield refHelper.getCheckoutInfo(subGit, settings.submodulesRemoteBranch, '');
+                                if (settings.lfs) {
+                                    yield subGit.lfsFetch(subCheckoutInfo.startPoint || subCheckoutInfo.ref);
+                                }
+                                yield subGit.checkout(subCheckoutInfo.ref, subCheckoutInfo.startPoint);
+                            }
+                        }
                         core.endGroup();
                     }
                 }
@@ -6308,15 +6365,15 @@ function cleanup(repositoryPath) {
     });
 }
 exports.cleanup = cleanup;
-function getGitCommandManager(settings) {
+function getGitCommandManager(repositoryPath, lfs) {
     return __awaiter(this, void 0, void 0, function* () {
-        core.info(`Working directory is '${settings.repositoryPath}'`);
+        core.info(`Working directory is '${repositoryPath}'`);
         try {
-            return yield gitCommandManager.createCommandManager(settings.repositoryPath, settings.lfs);
+            return yield gitCommandManager.createCommandManager(repositoryPath, lfs);
         }
         catch (err) {
             // Git is required for LFS
-            if (settings.lfs) {
+            if (lfs) {
                 throw err;
             }
             // Otherwise fallback to REST API
@@ -14586,8 +14643,10 @@ function getInputs() {
     else if (submodulesString == 'TRUE') {
         result.submodules = true;
     }
+    result.submodulesRemoteBranch = core.getInput('submodules-remote-branch');
     core.debug(`submodules = ${result.submodules}`);
     core.debug(`recursive submodules = ${result.nestedSubmodules}`);
+    core.debug(`submodules remote branch = ${result.submodulesRemoteBranch}`);
     // Auth token
     result.authToken = core.getInput('token', { required: true });
     // SSH

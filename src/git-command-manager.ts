@@ -26,6 +26,7 @@ export interface IGitCommandManager {
   configExists(configKey: string, globalConfig?: boolean): Promise<boolean>
   fetch(refSpec: string[], fetchDepth?: number): Promise<void>
   getDefaultBranch(repositoryUrl: string): Promise<string>
+  getSubmodulesList(): Promise<string[]>
   getWorkingDirectory(): string
   init(): Promise<void>
   isDetached(): Promise<boolean>
@@ -33,6 +34,7 @@ export interface IGitCommandManager {
   lfsInstall(): Promise<void>
   log1(format?: string): Promise<string>
   remoteAdd(remoteName: string, remoteUrl: string): Promise<void>
+  remoteBranchExists(branch: string): Promise<boolean>
   removeEnvironmentVariable(name: string): void
   revParse(ref: string): Promise<string>
   setEnvironmentVariable(name: string, value: string): void
@@ -224,6 +226,13 @@ class GitCommandManager {
     throw new Error('Unexpected output when retrieving default branch')
   }
 
+  async getSubmodulesList(): Promise<string[]> {
+    core.debug('get submodules list')
+    //const output = await this.submoduleForeach('--quiet \'echo $name\'', false)
+    const output = await this.execGit(['submodule', 'foreach', '--quiet', 'echo $name'])
+    return output.stdout.trim().split('\n')
+  }
+
   getWorkingDirectory(): string {
     return this.workingDirectory
   }
@@ -263,6 +272,16 @@ class GitCommandManager {
 
   async remoteAdd(remoteName: string, remoteUrl: string): Promise<void> {
     await this.execGit(['remote', 'add', remoteName, remoteUrl])
+  }
+
+  async remoteBranchExists(branch: string): Promise<boolean> {
+    const output2 = await this.execGit([
+      'ls-remote',
+      '--heads',
+      'origin',
+      branch])
+
+    return !!output2.stdout
   }
 
   removeEnvironmentVariable(name: string): void {

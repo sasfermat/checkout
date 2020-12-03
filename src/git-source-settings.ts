@@ -50,6 +50,11 @@ export interface IGitSourceSettings {
   nestedSubmodules: boolean
 
   /**
+   * Indicates the remote branch to checkout for submodules (if it exists)
+   */
+  submodulesRemoteBranch: string
+
+  /**
    * The auth token to use when fetching the repository
    */
   authToken: string

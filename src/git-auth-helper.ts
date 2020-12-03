@@ -134,36 +134,34 @@ class GitAuthHelper {
     // Remove possible previous HTTPS instead of SSH
     await this.removeGitConfig(this.insteadOfKey, true)
 
-    if (this.settings.persistCredentials) {
-      // Configure a placeholder value. This approach avoids the credential being captured
-      // by process creation audit events, which are commonly logged. For more information,
-      // refer to https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing
-      const output = await this.git.submoduleForeach(
-        `git config --local '${this.tokenConfigKey}' '${this.tokenPlaceholderConfigValue}' && git config --local --show-origin --name-only --get-regexp remote.origin.url`,
+    // Configure a placeholder value. This approach avoids the credential being captured
+    // by process creation audit events, which are commonly logged. For more information,
+    // refer to https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing
+    const output = await this.git.submoduleForeach(
+      `git config --local '${this.tokenConfigKey}' '${this.tokenPlaceholderConfigValue}' && git config --local --show-origin --name-only --get-regexp remote.origin.url`,
+      this.settings.nestedSubmodules
+    )
+
+    // Replace the placeholder
+    const configPaths: string[] =
+      output.match(/(?<=(^|\n)file:)[^\t]+(?=\tremote\.origin\.url)/g) || []
+    for (const configPath of configPaths) {
+      core.debug(`Replacing token placeholder in '${configPath}'`)
+      await this.replaceTokenPlaceholder(configPath)
+    }
+
+    if (this.settings.sshKey) {
+      // Configure core.sshCommand
+      await this.git.submoduleForeach(
+        `git config --local '${SSH_COMMAND_KEY}' '${this.sshCommand}'`,
         this.settings.nestedSubmodules
       )
-
-      // Replace the placeholder
-      const configPaths: string[] =
-        output.match(/(?<=(^|\n)file:)[^\t]+(?=\tremote\.origin\.url)/g) || []
-      for (const configPath of configPaths) {
-        core.debug(`Replacing token placeholder in '${configPath}'`)
-        await this.replaceTokenPlaceholder(configPath)
-      }
-
-      if (this.settings.sshKey) {
-        // Configure core.sshCommand
-        await this.git.submoduleForeach(
-          `git config --local '${SSH_COMMAND_KEY}' '${this.sshCommand}'`,
-          this.settings.nestedSubmodules
-        )
-      } else {
-        // Configure HTTPS instead of SSH
-        await this.git.submoduleForeach(
-          `git config --local '${this.insteadOfKey}' '${this.insteadOfValue}'`,
-          this.settings.nestedSubmodules
-        )
-      }
+    } else {
+      // Configure HTTPS instead of SSH
+      await this.git.submoduleForeach(
+        `git config --local '${this.insteadOfKey}' '${this.insteadOfValue}'`,
+        this.settings.nestedSubmodules
+      )
     }
   }
 

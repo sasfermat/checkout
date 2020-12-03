@@ -102,8 +102,10 @@ export function getInputs(): IGitSourceSettings {
   } else if (submodulesString == 'TRUE') {
     result.submodules = true
   }
+  result.submodulesRemoteBranch = core.getInput('submodules-remote-branch');
   core.debug(`submodules = ${result.submodules}`)
   core.debug(`recursive submodules = ${result.nestedSubmodules}`)
+  core.debug(`submodules remote branch = ${result.submodulesRemoteBranch}`)
 
   // Auth token
   result.authToken = core.getInput('token', {required: true})

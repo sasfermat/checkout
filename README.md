@@ -105,6 +105,10 @@ Refer [here](https://github.com/actions/checkout/blob/v1/README.md) for previous
     #
     # Default: false
     submodules: ''
+
+    # Remote branch to checkout submodules to. Does nothing on a submodule for which a
+    # branch with this name does not exist.
+    submodules-remote-branch: ''
 ```
 <!-- end usage -->
 
