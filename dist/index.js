@@ -6214,7 +6214,7 @@ function getSource(settings) {
             yield authHelper.configureAuth();
             core.endGroup();
             // Determine the default branch
-            if (!settings.ref && !settings.commit) {
+            if ((!settings.ref && !settings.commit) || (settings.ref && !(yield git.remoteBranchExists(settings.ref)))) {
                 core.startGroup('Determining the default branch');
                 if (settings.sshKey) {
                     settings.ref = yield git.getDefaultBranch(repositoryUrl);

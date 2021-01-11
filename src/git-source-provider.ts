@@ -104,7 +104,7 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
     core.endGroup()
 
     // Determine the default branch
-    if (!settings.ref && !settings.commit) {
+    if ((!settings.ref && !settings.commit) || (settings.ref && !(await git.remoteBranchExists(settings.ref)))) {
       core.startGroup('Determining the default branch')
       if (settings.sshKey) {
         settings.ref = await git.getDefaultBranch(repositoryUrl)
