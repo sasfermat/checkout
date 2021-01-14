@@ -213,21 +213,9 @@ export async function getSource(settings: IGitSourceSettings): Promise<void> {
                 await subGit.lfsInstall()
               }
 
-              if (settings.fetchDepth <= 0) {
-                // Fetch all branches and tags
-                let refSpec = refHelper.getRefSpecForAllHistory(
-                  settings.submodulesRemoteBranch,
-                  ''
-                )
-                await subGit.fetch(refSpec)
-
-                // When all history is fetched, the ref we're interested in may have moved to a different
-                // commit (push or force push). If so, fetch again with a targeted refspec.
-                if (!(await refHelper.testRef(subGit, settings.submodulesRemoteBranch, ''))) {
-                  refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '')
-                  await subGit.fetch(refSpec)
-                }
-              } else {
+              // Here the submodule synchronization has already fetched everything in case fetchDepth
+              // is < = 0, so only fetch the ref if fetchDepth is superior.
+              if (settings.fetchDepth > 0) {
                   const refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '')
                   await subGit.fetch(refSpec, settings.fetchDepth)
               }

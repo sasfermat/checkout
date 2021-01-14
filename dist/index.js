@@ -6297,18 +6297,9 @@ function getSource(settings) {
                                 if (settings.lfs) {
                                     yield subGit.lfsInstall();
                                 }
-                                if (settings.fetchDepth <= 0) {
-                                    // Fetch all branches and tags
-                                    let refSpec = refHelper.getRefSpecForAllHistory(settings.submodulesRemoteBranch, '');
-                                    yield subGit.fetch(refSpec);
-                                    // When all history is fetched, the ref we're interested in may have moved to a different
-                                    // commit (push or force push). If so, fetch again with a targeted refspec.
-                                    if (!(yield refHelper.testRef(subGit, settings.submodulesRemoteBranch, ''))) {
-                                        refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '');
-                                        yield subGit.fetch(refSpec);
-                                    }
-                                }
-                                else {
+                                // Here the submodule synchronization has already fetched everything in case fetchDepth
+                                // is < = 0, so only fetch the ref if fetchDepth is superior.
+                                if (settings.fetchDepth > 0) {
                                     const refSpec = refHelper.getRefSpec(settings.submodulesRemoteBranch, '');
                                     yield subGit.fetch(refSpec, settings.fetchDepth);
                                 }
